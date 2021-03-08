@@ -18,6 +18,6 @@ SELECT count(distinct City) AS [#Cities], COUNT(distinct PostalCode) AS [#Postal
 -- 3: Hvad bruges kollenen Person.Person.Demographics til
 -- <IndividualSurvey xmlns="http://schemas.microsoft.com/sqlserver/2004/07/adventure-works/IndividualSurvey"><TotalPurchaseYTD>0</TotalPurchaseYTD></IndividualSurvey>
 USE AdventureWorks2019;
-SELECT top 5 * FROM Person.Person;
+SELECT top 10 * FROM Person.Person;
 
 
