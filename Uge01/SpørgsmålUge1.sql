@@ -20,4 +20,12 @@ SELECT count(distinct City) AS [#Cities], COUNT(distinct PostalCode) AS [#Postal
 USE AdventureWorks2019;
 SELECT top 10 * FROM Person.Person;
 
+-- Der er svarene fra en demografisk spørgeundersøgelse.
+-- Beskrevet her: https://docs.microsoft.com/en-us/previous-versions/sql/sql-server-2008-r2/ms189965(v=sql.105)?redirectedfrom=MSDN
+-- Det er en måde at spare plads på, fordi der ikke laves kolonner med NULL, kun XML felter med de felter der har en værdi.
+USE AdventureWorks2019;
+GO
+SELECT Demographics
+FROM   Person.Person
+WHERE Demographics IS NOT NULL;
 
