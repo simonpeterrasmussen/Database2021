@@ -51,3 +51,6 @@ INSERT INTO [dbo].[AuthorBook]
 VALUES
 ( 1, 0 );
 GO
+
+EXECUTE [dbo].[CreateBook] 'Bl.a.', 'Bl.a.', '9781484266052', 299.00;
+EXECUTE [dbo].[CreateAuthor] 'Elliotte Rusty', 'Harold', 'erh@idgbooks.com';

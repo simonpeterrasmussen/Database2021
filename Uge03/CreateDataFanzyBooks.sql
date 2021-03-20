@@ -26,9 +26,9 @@ EXECUTE [dbo].[CreateAuthor] 'Elliotte Rusty', 'Harold', 'erh@idgbooks.com';
 GO
 
 -- Create Books:
-EXECUTE [dbo].[CreateBook] 'Beginning T-SQL', 'A Step-by-Step Approach', '9781484266052', 299.00
-EXECUTE [dbo].[CreateBook] 'SQL in easy steps', 'SQL for web developers, programmers & students', '9781840785432', 139.00
-EXECUTE [dbo].[CreateBook] 'JavaScript in easy steps', 'Create functions for the web', '9781840785702', 139.00
+EXECUTE [dbo].[CreateBook] 'Beginning T-SQL', 'A Step-by-Step Approach', '9781484266052', 299.00;
+EXECUTE [dbo].[CreateBook] 'SQL in easy steps', 'SQL for web developers, programmers & students', '9781840785432', 139.00;
+EXECUTE [dbo].[CreateBook] 'JavaScript in easy steps', 'Create functions for the web', '9781840785702', 139.00;
 EXECUTE [dbo].[CreateBook] 'Database Systems', 'A Practical Approach to Design, implementation and Management', '9781292061184', 399.95;
 GO
 
