@@ -1,4 +1,4 @@
----- 3.1
+---- 3-1
 -- 1.
 USE AdventureWorks2019;
 SELECT CustomerID, StoreID, AccountNumber
@@ -31,7 +31,7 @@ SELECT '[Application].[StateProvinves]' as TABLE;
 -- Det giver dårligere performance at returnere flere kolonner end nøødvendigt både på db og nettrafik;
 -- Der kan være felter der ikke må vises/ses af alle;
 
----- 3.2
+---- 3-2
 -- 1.
 USE AdventureWorks2019;
 SELECT BusinessEntityID, LoginID, JobTitle
@@ -77,7 +77,7 @@ SELECT CustomerID, CustomerName, AccountOpenedDate
 -- WHERE reducerer antallet af records der sendes ud af databasen.
 -- Det er bedre at reducere antallet af records på databasen end i programmet.
 
----- 3.3
+---- 3-3
 -- 1.
 USE AdventureWorks2019;
 SELECT SalesOrderID, CONVERT(NVARCHAR, OrderDate, 23) as [Date of Order], TotalDue
@@ -118,7 +118,7 @@ SELECT *
 -- IN operator er god at anvende når resultatet fra sub-query kan anvendes i WHERE clause.
 -- IN operator kan anvendes når liste af værdier er kendt.
 
----- 3.4
+---- 3-4
 -- 1.
 USE AdventureWorks2019;
 SELECT [ProductID], [Name], [Color]
@@ -150,7 +150,7 @@ SELECT *
 -- 2: Leverings metoden er ved at blive ændret.
 -- 3: Der er ikke nogen, det er afhæntning.
 
----- 3.5
+---- 3-5
 -- 1.
 USE AdventureWorks2019
 SELECT [BusinessEntityID], [FirstName], Coalesce([MiddleName], ''), [LastName]
