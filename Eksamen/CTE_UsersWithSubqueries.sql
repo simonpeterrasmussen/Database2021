@@ -2,7 +2,6 @@
 List users and find attributes with sub-selects
 */
 USE MXMC_db;
-GO
 set statistics time on;
 WITH UseridTable ( GlobalID, ActiveEmpNo, DisplayName, CC, email, [Status], ValidFrom, ValidTo, Department, OrgUnit, CostCenter, JobKey, JobText, IsManager, SNC, ManagerId )
 	AS (
@@ -57,7 +56,12 @@ WITH UseridTable ( GlobalID, ActiveEmpNo, DisplayName, CC, email, [Status], Vali
 			AND a.MCIDSTORE = 1
 	 )
 
-SELECT GlobalID AS 'GlobalID', CAST(ActiveEmpNo AS int) AS 'ActiveEmpNo', COALESCE(DisplayName,'') AS 'Name', COALESCE(CC,'') AS 'CC', COALESCE(email,'') AS 'email', COALESCE([Status],'') AS 'Status',		COALESCE(ValidFrom,'') AS 'ValidFrom', COALESCE(ValidTo,'') AS 'ValidTo',		COALESCE(Department,'') AS 'Department', COALESCE(OrgUnit,'') AS 'OrgUnit', COALESCE(CostCenter,'') AS 'CostCenter',		COALESCE(JobKey,'') AS 'JobKey', COALESCE(JobText,'') AS 'JobText', COALESCE(IsManager,'') AS 'IsManager',		COALESCE(SNC,'') AS 'SNC',		COALESCE(ManagerId,'') AS 'ManagerId'
+SELECT GlobalID AS 'GlobalID', CAST(ActiveEmpNo AS int) AS 'ActiveEmpNo', COALESCE(DisplayName,'') AS 'Name',
+		COALESCE(CC,'') AS 'CC', COALESCE(email,'') AS 'email', COALESCE([Status],'') AS 'Status',
+		COALESCE(ValidFrom,'') AS 'ValidFrom', COALESCE(ValidTo,'') AS 'ValidTo',
+		COALESCE(Department,'') AS 'Department', COALESCE(OrgUnit,'') AS 'OrgUnit', COALESCE(CostCenter,'') AS 'CostCenter',
+		COALESCE(JobKey,'') AS 'JobKey', COALESCE(JobText,'') AS 'JobText', COALESCE(IsManager,'') AS 'IsManager',
+		COALESCE(SNC,'') AS 'SNC', COALESCE(ManagerId,'') AS 'ManagerId'
 	FROM UseridTable
     WHERE [Status] IN ('3', 'A', 'D')				-- Only active users
       AND CC = 'GBJ'

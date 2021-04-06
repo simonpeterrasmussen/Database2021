@@ -1,9 +1,12 @@
-USE MXMC_db;
-GO
 /*
 List users and find attributes with joins 
-Direct on tables, i.e. no view            
+Direct on tables, i.e. no view.
+Be aware:
+(MXI_VALUES.Disabled = 0) AND ((MXI_VALUES.ExpiryTime IS NULL) OR (MXI_VALUES.ExpiryTime > GETDATE()))
+is missing for each attribute.
+For run time testing it is OK.
 */
+USE MXMC_db;
 set statistics time on;
 WITH UseridTable (GlobalID, ActiveEmpNo, DisplayName, CC, email, [Status], ValidFrom, ValidTo, Department, OrgUnit, CostCenter, JobKey, JobText, IsManager, SNC, ManagerId )
 	AS (
@@ -31,6 +34,7 @@ WITH UseridTable (GlobalID, ActiveEmpNo, DisplayName, CC, email, [Status], Valid
     LEFT OUTER JOIN MXI_VALUES AS p WITH (nolock) ON p.MSKEY = a.mcMSKEY AND (p.Attr_ID = 175 OR p.Attr_ID IS NULL )  -- 'MX_FS_PERSONNEL_NUMBER_OF_MANAGER'
     WHERE a.mcEntryType = 'MX_PERSON'
       AND a.MCIDSTORE = 1
+      AND a.mcEntryState = 0
   )
 
 SELECT * FROM UseridTable

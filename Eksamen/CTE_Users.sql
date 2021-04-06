@@ -1,9 +1,8 @@
-USE MXMC_db;
-GO
 /*
 List users and find attributes with join
 Using predefined views                  
 */
+USE MXMC_db;
 set statistics time on;
 WITH UseridTable ( GlobalID, ActiveEmpNo, DisplayName, CC, email, [Status], ValidFrom, ValidTo, Department, OrgUnit, CostCenter, JobKey, JobText, IsManager, SNC, ManagerId )
 	AS (

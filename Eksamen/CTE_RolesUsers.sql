@@ -1,16 +1,13 @@
-USE MXMC_db;
-GO
-
 /*
-Select roles related to an user
+Select roles related to a user
 UNION to privileges              
 using views                      
 */
-
+USE MXMC_db;
 WITH RoleTable (Id, RoleID, RoleName, RoleDescription)
 	AS (
         SELECT a.mcMSKEY, a.mcMSKEYVALUE AS 'RoleID', b.aValue AS 'RoleName', c.aValue AS 'Description'
-            FROM mxi_entry AS a WITH (nolock)
+            FROM idmv_entry_simple AS a WITH (nolock)
             LEFT OUTER JOIN idmv_value_basic_active AS b WITH (nolock) ON b.MSKEY = a.mcMSKEY AND (b.AttrName = 'DISPLAYNAME' OR b.Attr_ID IS NULL )  -- 276
             LEFT OUTER JOIN idmv_value_basic_active AS c WITH (nolock) ON c.MSKEY = a.mcMSKEY AND (c.AttrName = 'DESCRIPTION' OR c.Attr_ID IS NULL )  -- 317
             WHERE a.mcEntryType = 'MX_ROLE'
@@ -60,43 +57,43 @@ WITH RoleTable (Id, RoleID, RoleName, RoleDescription)
     RoleRoleTable (RoleFromId, RoleToId)
     AS (
         SELECT CAST(mcThisMSKEY AS nvarchar), CAST(mcOtherMSKEY AS nvarchar)
-            FROM mxi_link WITH (nolock)
-            WHERE mcThisEntryType = 10
-                AND mcOtherEntryType = 10
+            FROM idmv_link_simple_active WITH (nolock)
+            WHERE mcThisEntryType = 10  -- Role
+                AND mcOtherEntryType = 10  -- Role
     ),
     PrivRoleTable (PrivId, RoleId)
     AS (
         SELECT  CAST(mcThisMSKEY AS nvarchar),  CAST(mcOtherMSKEY AS nvarchar)
-            FROM mxi_link WITH (nolock)
-            WHERE mcThisEntryType = 9
-                AND mcOtherEntryType = 10
+            FROM idmv_link_simple_active WITH (nolock)
+            WHERE mcThisEntryType = 9  -- Privilege
+                AND mcOtherEntryType = 10  -- Role
     ),
     UserPrivTable (UserId, PrivId)
     AS (
         SELECT CAST(mcThisMSKEY AS nvarchar),  CAST(mcOtherMSKEY AS nvarchar)
-            FROM mxi_link WITH (nolock)
-            WHERE mcThisEntryType = 7
-                AND mcOtherEntryType = 9        
+            FROM idmv_link_simple_active WITH (nolock)
+            WHERE mcThisEntryType = 7  -- Person
+                AND mcOtherEntryType = 9  -- Privilege
     ),
     UserRoleTable (UserId, RoleId)
     AS (
         SELECT CAST(mcThisMSKEY AS nvarchar),  CAST(mcOtherMSKEY AS nvarchar)
-            FROM mxi_link WITH (nolock)
-            WHERE mcThisEntryType = 7
-                AND mcOtherEntryType = 10        
+            FROM idmv_link_simple_active WITH (nolock)
+            WHERE mcThisEntryType = 7  -- Person
+                AND mcOtherEntryType = 10  -- Role
     )
 
-SELECT u.GlobalID, u.DisplayName, u.CC, r.RoleID AS 'Role/PrivID', 
-        COALESCE(r.RoleName, '') AS 'Name', ''AS Description, '' AS 'Repository'
+SELECT u.GlobalID, u.DisplayName, u.CC, r.RoleID AS 'Role/PrivID',
+    COALESCE(r.RoleName, '') AS 'Name', '' AS Description, '' AS 'Repository'
     FROM UserIdTable AS u
     JOIN UserRoleTable AS ur ON ur.UserId = u.Id
     JOIN RoleTable AS r ON r.Id = ur.RoleId
-    WHERE u.GlobalID = '33157'
+    WHERE u.GlobalID = 'xxxxx'
 UNION ALL
 SELECT u.GlobalID, u.DisplayName, u.CC, p.PrivID AS 'Role/PrivID', 
-        COALESCE(p.PrivName, ''), COALESCE(p.PrivDescription, ''), COALESCE(p.RepositoryId, '') AS 'Repository'
+    COALESCE(p.PrivName, '') AS 'Name', COALESCE(p.PrivDescription, '') AS 'Description', COALESCE(p.RepositoryId, '') AS 'Repository'
     FROM UserIdTable AS u
     JOIN UserPrivTable AS up ON up.UserId = u.Id
     JOIN PrivilegesTable AS p ON p.Id = up.PrivId
-    WHERE u.GlobalID = '33157'
+    WHERE u.GlobalID = 'xxxxx'
     ORDER BY u.GlobalID, [Role/PrivID]

@@ -1,9 +1,8 @@
-USE MXMC_db;
-GO
 /*
 List users and find attributes with join           
 Using predefined views and insert data into #table
 */
+USE MXMC_db;
 set statistics time on;
 DROP TABLE IF EXISTS #UseridTable;
 CREATE TABLE #UseridTable ( GlobalID nvarchar(100), ActiveEmpNo nvarchar(100), DisplayName nvarchar(100), CC nvarchar(100),
