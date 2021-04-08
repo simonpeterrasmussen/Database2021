@@ -4,7 +4,7 @@ Direct on tables, i.e. no view.
 Be aware:
 (MXI_VALUES.Disabled = 0) AND ((MXI_VALUES.ExpiryTime IS NULL) OR (MXI_VALUES.ExpiryTime > GETDATE()))
 is missing for each attribute.
-For run time testing it is OK.
+For run time testing this might not be OK.
 */
 USE MXMC_db;
 set statistics time on;
